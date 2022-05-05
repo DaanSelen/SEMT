@@ -17,8 +17,9 @@ type Alert struct {
 }
 
 const (
+	threshold    = 80
 	timeFormat   = "02-01-2006 15:04:05"
-	apiServerURL = "http://localhost:2468/newentry"
+	apiServerURL = "http://192.168.10.10:2468/newentry"
 )
 
 func main() {
@@ -33,7 +34,7 @@ func checkCpuUsage() {
 		cpuPerc := math.Round(rawPerc[0]*100) / 100
 
 		fmt.Println(cpuPerc)
-		if cpuPerc >= 30 {
+		if cpuPerc >= threshold {
 			fmt.Println("ALERT CPU USAGE!")
 			report("cpu")
 		}
