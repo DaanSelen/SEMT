@@ -7,6 +7,10 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+const (
+	dataServer = "192.168.10.15:3306"
+)
+
 var (
 	entry *sql.DB
 	err   error
@@ -14,7 +18,7 @@ var (
 
 func initDBConnection() {
 	fmt.Println("DATABASE CONNECTION INITIALISING")
-	entry, err = sql.Open("mysql", "api_server:apipassword@tcp(localhost:3306)/semt") //TO DO CHANGE AUTHENTICATION SOURCES (NOT HAVE IT HARDCODED)
+	entry, err = sql.Open("mysql", "api_server:apipassword@tcp("+dataServer+")/semt") //TO DO CHANGE AUTHENTICATION SOURCES (NOT HAVE IT HARDCODED)
 	if err != nil {
 		panic("DATABASE CONNECTION FAILED")
 	} else {
