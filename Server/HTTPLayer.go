@@ -16,7 +16,7 @@ func initHTTP() {
 	semt.HandleFunc("/newentry", handleNewEntryEndpoint).Methods("POST")
 	semt.HandleFunc("/check", handleCheckEndpoint).Methods("GET")
 
-	go http.ListenAndServe((":2468"), semt)
+	http.ListenAndServe((":2468"), semt)
 }
 
 func handleRootEndpoint(w http.ResponseWriter, r *http.Request) {

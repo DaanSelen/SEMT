@@ -11,10 +11,8 @@ type Alert struct {
 }
 
 func main() {
-	initHTTP()
 	initDBConnection()
-	fmt.Println("APPLICATION IS RUNNING. Press enter to exit.")
-	fmt.Scanln()
+	initHTTP()
 }
 
 func newEntry(comp, time string) {
