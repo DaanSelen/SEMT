@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -20,9 +21,12 @@ func initDBConnection() {
 	fmt.Println("DATABASE CONNECTION INITIALISING")
 	entry, err = sql.Open("mysql", "api_server:apipassword@tcp("+dataServer+")/semt") //TO DO CHANGE AUTHENTICATION SOURCES (NOT HAVE IT HARDCODED)
 	if err != nil {
-		panic("DATABASE CONNECTION FAILED")
+		log.Fatal(err)
 	} else {
-		data, _ := entry.Query("select count(id) from entry")
+		data, err := entry.Query("select count(id) from entry")
+		if err != nil {
+			log.Fatal(err)
+		}
 		defer data.Close()
 		data.Next()
 		var currentEntries int
@@ -31,10 +35,10 @@ func initDBConnection() {
 	}
 }
 
-func insertEntry(comp, time string) {
-	state, _ := entry.Prepare("INSERT INTO entry(comp, time) values(?, ?)")
+func insertEntry(hostname, comp, time string) {
+	state, _ := entry.Prepare("INSERT INTO entry(hostname, comp, time) values(?, ?, ?)")
 	defer state.Close()
-	state.Exec(comp, time)
+	state.Exec(hostname, comp, time)
 }
 
 func dbcheck() []Alert {

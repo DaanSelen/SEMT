@@ -29,7 +29,7 @@ func handleNewEntryEndpoint(w http.ResponseWriter, r *http.Request) {
 
 	var alert Alert
 	_ = json.NewDecoder(r.Body).Decode(&alert)
-	newEntry(alert.Comp, alert.Time)
+	newEntry(alert.Hostname, alert.Comp, alert.Time)
 }
 
 func handleCheckEndpoint(w http.ResponseWriter, r *http.Request) {
