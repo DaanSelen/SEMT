@@ -19,7 +19,7 @@ type Alert struct {
 }
 
 const (
-	threshold    = 20
+	threshold    = 75
 	timeFormat   = "02-01-2006 15:04:05"
 	apiServerURL = "http://192.168.10.10:2468/newentry"
 )
