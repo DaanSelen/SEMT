@@ -1,0 +1,9 @@
+#SEMTServer Config File, all keyword are in full caps:
+#FORMAT = xxx.xxx.xxx.xxx:xxxx, for example 192.168.1.20:1234
+DATASERVERIP = localhost:3306
+
+#FORMAT here type the username the SEMTS will use to log into the (SQL) Database.
+DATABASEUSERNAME = apiserver
+
+#FORMAT here type the password the SEMTS will use to log into the (SQL) Database.
+DATABASEPASSWORD = apipassword

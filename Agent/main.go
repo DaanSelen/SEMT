@@ -74,12 +74,9 @@ func getInfoFromConfig(keyword string) string {
 		log.Println("Opening config.txt file, perhaps there is no config.txt?\n", err)
 	}
 	defer f.Close()
-	lineByLine := bufio.NewScanner(f)
-	for lineByLine.Scan() {
-		if !strings.Contains(lineByLine.Text(), "#") || lineByLine.Text() != "" { //Skipping empty rows and commented rows
-			if strings.Contains(lineByLine.Text(), (keyword + " = ")) {
-				info = strings.ReplaceAll(lineByLine.Text(), (keyword + " = "), "")
-			}
+	for lineByLine := bufio.NewScanner(f); lineByLine.Scan(); {
+		if !(strings.Contains(lineByLine.Text(), "#") || lineByLine.Text() == "") && strings.Contains(lineByLine.Text(), (keyword+" = ")) { //Skipping empty rows and commented rows and checking for the ' = ' in the config.
+			info = strings.ReplaceAll(lineByLine.Text(), (keyword + " = "), "") //Getting the important information from the line with the keyword.
 		}
 	}
 	log.Println(keyword + " ASSIGNED TO: " + info)
@@ -92,9 +89,8 @@ func checkCpuUsage() {
 		rawPerc, _ := cpu.Percent(time.Second, false)
 		cpuPerc := math.Round(rawPerc[0]*100) / 100
 
-		log.Println(cpuPerc)
 		if cpuPerc >= threshold {
-			log.Println("CPU USAGE ABOVE THRESHOLD, COUNTING.")
+			log.Println("CPU USAGE ABOVE THRESHOLD!")
 			countUsage("PLUS")
 		} else {
 			countUsage("RST")
@@ -105,7 +101,7 @@ func checkCpuUsage() {
 func countUsage(command string) {
 	if command == "PLUS" {
 		count++
-		log.Println("CURRENT COUNT:", count)
+		log.Println("CURRENT COUNT:", count, "Second(s)")
 	} else if command == "RST" {
 		count = 0
 	}

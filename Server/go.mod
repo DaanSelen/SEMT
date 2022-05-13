@@ -1,4 +1,4 @@
-module SEMT
+module SEMTS
 
 go 1.13
 

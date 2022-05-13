@@ -21,7 +21,8 @@ func initHTTP() {
 
 func handleRootEndpoint(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
-	json.NewEncoder(w).Encode("Root directory endpoint hit! No options here.")
+
+	json.NewEncoder(w).Encode("Root directory endpoint hit! No options here. Check /newentry")
 }
 
 func handleNewEntryEndpoint(w http.ResponseWriter, r *http.Request) {
@@ -34,6 +35,11 @@ func handleNewEntryEndpoint(w http.ResponseWriter, r *http.Request) {
 
 func handleCheckEndpoint(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+
 	alters := check()
-	json.NewEncoder(w).Encode(alters)
+	if alters == nil {
+		json.NewEncoder(w).Encode("THERE ARE NO ENTRIES IN THE DATABASE")
+	} else {
+		json.NewEncoder(w).Encode(alters)
+	}
 }

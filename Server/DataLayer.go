@@ -8,10 +8,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-const (
-	dataServer = "192.168.10.15:3306"
-)
-
 var (
 	entry *sql.DB
 	err   error
@@ -19,7 +15,7 @@ var (
 
 func initDBConnection() {
 	fmt.Println("DATABASE CONNECTION INITIALISING")
-	entry, err = sql.Open("mysql", "api_server:apipassword@tcp("+dataServer+")/semt") //TO DO CHANGE AUTHENTICATION SOURCES (NOT HAVE IT HARDCODED)
+	entry, err = sql.Open("mysql", (dataUser + ":" + dataPass + "@tcp(" + dataServer + ")/semt")) //TO DO CHANGE AUTHENTICATION SOURCES (NOT HAVE IT HARDCODED)
 	if err != nil {
 		log.Fatal(err)
 	} else {
@@ -47,7 +43,7 @@ func dbcheck() []Alert {
 	defer rows.Close()
 	for rows.Next() {
 		var alert Alert
-		rows.Scan(&alert.ID, &alert.Comp, &alert.Time)
+		rows.Scan(&alert.ID, &alert.Hostname, &alert.Comp, &alert.Time)
 		alerts = append(alerts, alert)
 	}
 	return alerts
