@@ -37,7 +37,6 @@ var (
 func main() {
 	log.Println("AGENT INITIALISING.")
 	go initVars()
-	go checkSEMTSConnection()
 	checkCpuUsage()
 }
 
@@ -46,10 +45,6 @@ func initVars() {
 	threshold, _ = strconv.ParseFloat(getInfoFromConfig(configKeywords[0]), 64)
 	alertTime, _ = strconv.Atoi(getInfoFromConfig(configKeywords[1]))
 	apiServerURL = "http://" + getInfoFromConfig(configKeywords[2]) + "/newentry"
-}
-
-func checkSEMTSConnection() {
-	//SEND A CHECK TO SEMTServer
 }
 
 func FileExists(name string) bool {
