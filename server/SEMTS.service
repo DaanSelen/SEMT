@@ -5,6 +5,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/etc/opt/semt/server/SEMTS
+WorkingDirectory=/etc/opt/semt/server
 
 [Install]
 WantedBy=multi-user.target
