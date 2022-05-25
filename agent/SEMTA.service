@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/etc/opt/semt/Server/SEMTA
+ExecStart=/etc/opt/semt/agent/SEMTA
 
 [Install]
 WantedBy=multi-user.target
