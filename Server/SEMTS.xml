@@ -1,0 +1,9 @@
+<service>
+  <id>SEMTS</id>
+  <name>SEMTS</name>
+  <description>Systemec Monitoring Tool Server</description>
+  <env name="HOME" value="%BASE%"/>
+  <logpath>%HOME%\logs</logpath>
+  <delayedAutoStart>true</delayedAutoStart>
+  <executable>SEMTS.exe</executable>
+</service>

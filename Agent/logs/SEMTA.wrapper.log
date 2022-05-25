@@ -5,3 +5,13 @@
 2022-05-26T00:20:38.365 INFO  service - Starting SEMTA.exe
 2022-05-26T00:20:38.421 INFO  service - Started process SEMTA (16056).
 2022-05-26T00:20:38.450 INFO  service - Service started successfully.
+2022-05-26T00:31:29.101 INFO  service - Stopping SEMTA
+2022-05-26T00:31:29.103 DEBUG service - ProcessKill 16056
+2022-05-26T00:31:29.108 INFO  service - Child process 'SEMTA (16056)' canceled with code -1073741510.
+2022-05-26T00:31:29.117 INFO  service - Finished SEMTA
+2022-05-26T00:31:29.118 INFO  service - Service stopped successfully.
+2022-05-26T00:31:36.513 DEBUG console - Starting WinSW in service mode.
+2022-05-26T00:31:36.566 INFO  console - Service 'SEMTA (SEMTA)' was refreshed successfully.
+2022-05-26T00:31:36.579 INFO  service - Starting SEMTA.exe
+2022-05-26T00:31:36.832 INFO  service - Started process SEMTA (8728).
+2022-05-26T00:31:36.859 INFO  service - Service started successfully.
