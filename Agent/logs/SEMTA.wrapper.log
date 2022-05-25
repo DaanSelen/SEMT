@@ -1,0 +1,7 @@
+2022-05-26T00:20:37.751 INFO  console - Installing service 'SEMTA (SEMTA)'...
+2022-05-26T00:20:37.811 INFO  console - Service 'SEMTA (SEMTA)' was installed successfully.
+2022-05-26T00:20:38.300 DEBUG console - Starting WinSW in service mode.
+2022-05-26T00:20:38.353 INFO  console - Service 'SEMTA (SEMTA)' was refreshed successfully.
+2022-05-26T00:20:38.365 INFO  service - Starting SEMTA.exe
+2022-05-26T00:20:38.421 INFO  service - Started process SEMTA (16056).
+2022-05-26T00:20:38.450 INFO  service - Service started successfully.

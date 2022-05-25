@@ -1,0 +1,9 @@
+<service>
+  <id>SEMTA</id>
+  <name>SEMTA</name>
+  <description>Systemec Monitoring Tool Agent</description>
+  <env name="HOME" value="%BASE%"/>
+  <logpath>%HOME%\logs</logpath>
+  <delayedAutoStart>true</delayedAutoStart>
+  <executable>SEMTA.exe</executable>
+</service>
