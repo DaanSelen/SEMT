@@ -1,4 +1,4 @@
-module SEMTAgent
+module SEMTA
 
 go 1.18
 
