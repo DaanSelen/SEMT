@@ -26,7 +26,7 @@ var (
 func main() {
 	initVars()
 	go initDBConnection()
-	go initHTTP()
+	initHTTP()
 
 	fmt.Scanln()
 }
