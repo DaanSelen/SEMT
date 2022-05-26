@@ -27,8 +27,6 @@ func main() {
 	initVars()
 	go initDBConnection()
 	initHTTP()
-
-	fmt.Scanln()
 }
 
 func initVars() {

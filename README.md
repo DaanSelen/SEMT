@@ -1,4 +1,4 @@
-# POC_SEMT
+#SEMT
 Systemec Monitoring Tool
 
 THINGS FOR ME:
