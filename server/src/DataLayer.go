@@ -6,29 +6,27 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var (
 	entry *sql.DB
-	err   error
 )
 
 func initDBConnection() {
-	fmt.Println("DATABASE CONNECTION INITIALISING")
-	entry, err = sql.Open("mysql", (dataUser + ":" + dataPass + "@tcp(" + dataServer + ")/semt")) //TO DO CHANGE AUTHENTICATION SOURCES (NOT HAVE IT HARDCODED)
+	entry, _ = sql.Open("sqlite3", "./semt.db")
+	statement, _ := entry.Prepare("CREATE TABLE IF NOT EXISTS entry (id int AUTO_INCREMENT NOT NULL, hostname varchar(100) NOT NULL, comp varchar(100) NOT NULL, time varchar(200) NOT NULL, PRIMARY KEY(id))")
+	defer statement.Close()
+	statement.Exec()
+	data, err := entry.Query("select count(id) from entry")
 	if err != nil {
 		log.Fatal(err)
-	} else {
-		data, err := entry.Query("select count(id) from entry")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer data.Close()
-		data.Next()
-		var currentEntries int
-		data.Scan(&currentEntries)
-		fmt.Println("Current entries:", currentEntries)
 	}
+	defer data.Close()
+	data.Next()
+	var currentEntries int
+	data.Scan(&currentEntries)
+	fmt.Println("Current entries:", currentEntries)
 }
 
 func insertEntry(hostname, comp, time string) {
