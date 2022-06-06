@@ -15,9 +15,11 @@ var (
 
 func initDBConnection() {
 	entry, _ = sql.Open("sqlite3", "./semt.db")
-	statement, _ := entry.Prepare("CREATE TABLE IF NOT EXISTS entry (id int AUTO_INCREMENT NOT NULL, hostname varchar(100) NOT NULL, comp varchar(100) NOT NULL, time varchar(200) NOT NULL, PRIMARY KEY(id))")
-	defer statement.Close()
-	statement.Exec()
+	statement1, _ := entry.Prepare("CREATE TABLE IF NOT EXISTS entry (id INTEGER PRIMARY KEY, hostname varchar(100) NOT NULL, comp varchar(100) NOT NULL, time varchar(200) NOT NULL)")
+	defer statement1.Close()
+	log.Println("TEST")
+	statement1.Exec()
+	log.Println("TEST")
 	data, err := entry.Query("select count(id) from entry")
 	if err != nil {
 		log.Fatal(err)
@@ -30,9 +32,16 @@ func initDBConnection() {
 }
 
 func insertEntry(hostname, comp, time string) {
-	state, _ := entry.Prepare("INSERT INTO entry(hostname, comp, time) values(?, ?, ?)")
+	state, err := entry.Prepare("INSERT INTO entry (id, hostname, comp, time) values(null, ?, ?, ?)")
+	if err != nil {
+		log.Println(err)
+	}
 	defer state.Close()
-	state.Exec(hostname, comp, time)
+	_, err = state.Exec(hostname, comp, time)
+	if err != nil {
+		log.Println(err)
+	}
+	defer state.Close()
 }
 
 func dbcheck() []Alert {
