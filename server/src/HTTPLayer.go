@@ -23,7 +23,7 @@ func initHTTP() {
 func handleRootEndpoint(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
 
-	json.NewEncoder(w).Encode("Root directory endpoint hit! No options here. Check /newentry")
+	json.NewEncoder(w).Encode("Root directory endpoint hit! No options here. Check /newentry or /check")
 }
 
 func handleMonitorUptimeEndpoint(w http.ResponseWriter, r *http.Request) {

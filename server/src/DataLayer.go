@@ -6,35 +6,42 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var (
 	entry *sql.DB
-	err   error
 )
 
 func initDBConnection() {
-	fmt.Println("DATABASE CONNECTION INITIALISING")
-	entry, err = sql.Open("mysql", (dataUser + ":" + dataPass + "@tcp(" + dataServer + ")/semt")) //TO DO CHANGE AUTHENTICATION SOURCES (NOT HAVE IT HARDCODED)
+	entry, _ = sql.Open("sqlite3", "./semt.db")
+	statement1, _ := entry.Prepare("CREATE TABLE IF NOT EXISTS entry (id INTEGER PRIMARY KEY, hostname varchar(100) NOT NULL, comp varchar(100) NOT NULL, time varchar(200) NOT NULL)")
+	defer statement1.Close()
+	log.Println("TEST")
+	statement1.Exec()
+	log.Println("TEST")
+	data, err := entry.Query("select count(id) from entry")
 	if err != nil {
 		log.Fatal(err)
-	} else {
-		data, err := entry.Query("select count(id) from entry")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer data.Close()
-		data.Next()
-		var currentEntries int
-		data.Scan(&currentEntries)
-		fmt.Println("Current entries:", currentEntries)
 	}
+	defer data.Close()
+	data.Next()
+	var currentEntries int
+	data.Scan(&currentEntries)
+	fmt.Println("Current entries:", currentEntries)
 }
 
 func insertEntry(hostname, comp, time string) {
-	state, _ := entry.Prepare("INSERT INTO entry(hostname, comp, time) values(?, ?, ?)")
+	state, err := entry.Prepare("INSERT INTO entry (id, hostname, comp, time) values(null, ?, ?, ?)")
+	if err != nil {
+		log.Println(err)
+	}
 	defer state.Close()
-	state.Exec(hostname, comp, time)
+	_, err = state.Exec(hostname, comp, time)
+	if err != nil {
+		log.Println(err)
+	}
+	defer state.Close()
 }
 
 func dbcheck() []Alert {
