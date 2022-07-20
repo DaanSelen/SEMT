@@ -1,11 +1,11 @@
 #SEMTAgent Config File, all keyword are in full caps:
 #Set this to the value of CPU usage % after which you would like the Agent to take action. (Count)
 #FORMAT = PERCENT(%)
-THRESHOLD = 80
+THRESHOLD = 10
 
 #ALERTTIME Is the amount of seconds the CPU usage % has to be above the threshold for the program to report to the main server
 #FORMAT = SECONDS
-ALERTTIME = 3
+ALERTTIME = 1
 
 #FORMAT = xxx.xxx.xxx.xxx:xxxx, for example 192.168.1.20:1234
 SERVERIP = localhost:2468

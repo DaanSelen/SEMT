@@ -13,19 +13,25 @@ func initHTTP() {
 	semt := mux.NewRouter().StrictSlash(true)
 
 	semt.HandleFunc("/", handleRootEndpoint).Methods("GET")
-	semt.HandleFunc("/newentry", handleNewEntryEndpoint).Methods("POST")
+	semt.HandleFunc("/monitor/uptime", handleMonitorUptimeEndpoint).Methods("POST")
+	semt.HandleFunc("/monitor/cpu", handleMonitorCPUAlertEndpoint).Methods("POST")
 	semt.HandleFunc("/check", handleCheckEndpoint).Methods("GET")
 
 	http.ListenAndServe((":2468"), semt)
 }
 
-func handleRootEndpoint(w http.ResponseWriter, r *http.Request) {
+func handleRootEndpoint(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
 
 	json.NewEncoder(w).Encode("Root directory endpoint hit! No options here. Check /newentry")
 }
 
-func handleNewEntryEndpoint(w http.ResponseWriter, r *http.Request) {
+func handleMonitorUptimeEndpoint(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+}
+
+func handleMonitorCPUAlertEndpoint(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var alert Alert
@@ -33,7 +39,7 @@ func handleNewEntryEndpoint(w http.ResponseWriter, r *http.Request) {
 	newEntry(alert.Hostname, alert.Comp, alert.Time)
 }
 
-func handleCheckEndpoint(w http.ResponseWriter, r *http.Request) {
+func handleCheckEndpoint(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	alters := check()

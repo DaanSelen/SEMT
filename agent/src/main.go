@@ -40,31 +40,11 @@ func main() {
 	checkCpuUsage()
 }
 
-func initVars() {
+func initVars() { //Initialise the variable that will be necessary for operation.
 	log.Println("CHECKING CONFIG.")
 	threshold, _ = strconv.ParseFloat(getInfoFromConfig(configKeywords[0]), 64)
 	alertTime, _ = strconv.Atoi(getInfoFromConfig(configKeywords[1]))
-	apiServerURL = "http://" + getInfoFromConfig(configKeywords[2]) + "/newentry"
-}
-
-func FileExists(name string) bool {
-	if _, err := os.Stat(name); err != nil {
-		if os.IsNotExist(err) {
-			return false
-		}
-	}
-	return true
-}
-
-func CreateFile(name string) error {
-	fo, err := os.Create(name)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		fo.Close()
-	}()
-	return nil
+	apiServerURL = "http://" + getInfoFromConfig(configKeywords[2]) + "/newcpuentry"
 }
 
 func getInfoFromConfig(keyword string) string {
