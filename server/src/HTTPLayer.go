@@ -13,8 +13,9 @@ func initHTTP() {
 	semt := mux.NewRouter().StrictSlash(true)
 
 	semt.HandleFunc("/", handleRootEndpoint).Methods("GET")
-	semt.HandleFunc("/monitor/uptime", handleMonitorUptimeEndpoint).Methods("POST")
+	semt.HandleFunc("/monitor/uptime", handleMonitorUptimeEndpoint).Methods("PATCH")
 	semt.HandleFunc("/monitor/cpu", handleMonitorCPUAlertEndpoint).Methods("POST")
+	semt.HandleFunc("/monitor/ram", handleMonitorRAMAlertEndpoint).Methods("POST")
 	semt.HandleFunc("/check", handleCheckEndpoint).Methods("GET")
 
 	http.ListenAndServe((":2468"), semt)
@@ -27,6 +28,11 @@ func handleRootEndpoint(w http.ResponseWriter, _ *http.Request) {
 }
 
 func handleMonitorUptimeEndpoint(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+}
+
+func handleMonitorRAMAlertEndpoint(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 }
