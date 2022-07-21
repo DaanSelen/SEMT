@@ -16,7 +16,9 @@ func initHTTP() {
 	semt.HandleFunc("/monitor/uptime", handleMonitorUptimeEndpoint).Methods("PATCH")
 	semt.HandleFunc("/monitor/cpu", handleMonitorCPUAlertEndpoint).Methods("POST")
 	semt.HandleFunc("/monitor/ram", handleMonitorRAMAlertEndpoint).Methods("POST")
-	semt.HandleFunc("/check", handleCheckEndpoint).Methods("GET")
+	semt.HandleFunc("/control/uptime", handleControlUptimeEndpoint).Methods("GET")
+	semt.HandleFunc("/control/cpu", handleControlCPUEndpoint).Methods("GET")
+	semt.HandleFunc("/control/ram", handleControlRAMEndpoint).Methods("GET")
 
 	http.ListenAndServe((":2468"), semt)
 }
@@ -45,7 +47,11 @@ func handleMonitorCPUAlertEndpoint(w http.ResponseWriter, r *http.Request) {
 	newEntry(alert.Hostname, alert.Comp, alert.Time)
 }
 
-func handleCheckEndpoint(w http.ResponseWriter, _ *http.Request) {
+func handleControlUptimeEndpoint(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func handleControlCPUEndpoint(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	alters := check()
@@ -54,4 +60,8 @@ func handleCheckEndpoint(w http.ResponseWriter, _ *http.Request) {
 	} else {
 		json.NewEncoder(w).Encode(alters)
 	}
+}
+
+func handleControlRAMEndpoint(w http.ResponseWriter, r *http.Request) {
+
 }

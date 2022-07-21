@@ -18,6 +18,7 @@ import (
 type Alert struct {
 	Hostname string `json:"hostname"`
 	Comp     string `json:"comp"`
+	IpAddr   string `json:"ipaddr"`
 	Time     string `json:"time"`
 }
 
@@ -44,7 +45,7 @@ func initVars() { //Initialise the variable that will be necessary for operation
 	log.Println("CHECKING CONFIG.")
 	threshold, _ = strconv.ParseFloat(getInfoFromConfig(configKeywords[0]), 64)
 	alertTime, _ = strconv.Atoi(getInfoFromConfig(configKeywords[1]))
-	apiServerURL = "http://" + getInfoFromConfig(configKeywords[2]) + "/newcpuentry"
+	apiServerURL = "http://" + getInfoFromConfig(configKeywords[2]) + "/monitor/cpu"
 }
 
 func getInfoFromConfig(keyword string) string {
@@ -98,6 +99,7 @@ func report(comp string) {
 	alert := Alert{
 		Hostname: hostname,
 		Comp:     comp,
+		ip
 		Time:     t,
 	}
 	body, _ := json.Marshal(alert)

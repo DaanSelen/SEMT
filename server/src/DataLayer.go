@@ -15,7 +15,7 @@ var (
 
 func initDBConnection() {
 	entry, _ = sql.Open("sqlite3", "./semt.db")
-	statement1, _ := entry.Prepare("CREATE TABLE IF NOT EXISTS entry (id INTEGER PRIMARY KEY, hostname varchar(100) NOT NULL, comp varchar(100) NOT NULL, time varchar(200) NOT NULL)")
+	statement1, _ := entry.Prepare("CREATE TABLE IF NOT EXISTS entry (id INTEGER PRIMARY KEY, hostname varchar(100) NOT NULL, ip-adres varchar(15) NOT NULL, comp varchar(100) NOT NULL, time varchar(200) NOT NULL)")
 	defer statement1.Close()
 	log.Println("TEST")
 	statement1.Exec()
